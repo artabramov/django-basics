@@ -1,0 +1,4 @@
+venv/
+geekshop/.idea/
+geekshop/__pycache__/
+geekshop/db.sqlite3
