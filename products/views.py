@@ -1,5 +1,6 @@
 from django.shortcuts import render
-import json
+from products.models import ProductCategory, Product
+from django.conf import settings
 
 
 # Create your views here.
@@ -12,12 +13,14 @@ def index(request):
 
 
 def products(request):
-    with open('/var/www/django.local/geekshop/products/fixtures/products.json', 'r') as JSON:
-        json_dict = json.load(JSON)
+
+    rows = Product.objects.all()
+    for row in rows:
+        row.image = str(settings.MEDIA_URL) + '/' + str(row.image)
 
     context = {
         'title': 'Geekshop - Каталог товаров',
         'description': 'Описание каталога товаров',
-        'products': json_dict,
+        'products': rows,
     }
     return render(request, 'products/products.html', context)
