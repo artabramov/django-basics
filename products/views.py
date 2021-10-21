@@ -14,13 +14,10 @@ def index(request):
 
 def products(request):
 
-    rows = Product.objects.all()
-    for row in rows:
-        row.image = str(settings.MEDIA_URL) + '/' + str(row.image)
-
     context = {
         'title': 'Geekshop - Каталог товаров',
         'description': 'Описание каталога товаров',
-        'products': rows,
+        'products': Product.objects.all(),
+        'categories': ProductCategory.objects.all(),
     }
     return render(request, 'products/products.html', context)
